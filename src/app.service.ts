@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-@Injectable()
+@Injectable()  // чтобы класс стал провайдером, т.е. этот сервис мы будем внедрять в контроллер, т.е. делать инъекцию
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  getUsers() {
+    return [{id: 1, name: 'Ulbi TV'}]
   }
 }
