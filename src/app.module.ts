@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
+import { User } from './users/users.model';
 
 @Module({
   controllers: [],  // регистрируем контроллер в модули
@@ -18,7 +19,7 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB, // название БД
-      models: [],
+      models: [User],                    // регистрируем модель
       autoLoadModels: true  // чтобы Sequelize создавал таблицы в БД на основании тех моделей, которые мы будем создавать
     }),
     UsersModule,
