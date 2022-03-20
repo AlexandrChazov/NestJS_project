@@ -13,6 +13,9 @@ import { RolesModule } from '../roles/roles.module';
   imports: [
     SequelizeModule.forFeature([User, Role, UserRoles]), // добавляем модели, которые мы используем в этом модуле
     RolesModule   // модуль импортируется вместе с сервисом
+  ],
+  exports: [
+    UsersService
   ]
 })
 export class UsersModule {}
