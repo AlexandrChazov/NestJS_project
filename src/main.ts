@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+// import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 async function main() {
   const PORT = process.env.PORT || 5000;
@@ -14,6 +15,7 @@ async function main() {
     .build()  // собрать объект из вышеперечисленного
   const document = SwaggerModule.createDocument(app, config)  // создаём объект документации
   SwaggerModule.setup('api/docs', app, document)  // указываем префикс, по которому будет доступна документация в браузере
+  // app.useGlobalGuards(JwtAuthGuard)  таким образом можно ограничивать доспут до всех эндпойнтов приложения
 
   await app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
 }
