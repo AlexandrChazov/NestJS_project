@@ -13,7 +13,7 @@ export class UsersService {
 
   async createUser(dto: CreateUserDto) {
     const user = await this.userRepository.create(dto);
-    const role = await this.roleService.getRoleByValue("USER");  // получаем роль из БД
+    const role = await this.roleService.getRoleByValue("ADMIN");  // получаем роль из БД
     await user.$set('roles', [role.id]) // указываем что роль принадлежит пользователю, метод .$set позволяет перезаписать поле
                                                           // и сразу обновить его внутри БД. Т.е. мы добавили роль в базу данных
     user.roles = [role]  // добавляем пользователю поле "roles" с созданной ролью, чтобы потом поместить эти данные в токен
