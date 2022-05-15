@@ -7,6 +7,11 @@ import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
 import { AuthModule } from './auth/auth.module';
+import { PostsModule } from './posts/posts.module';
+import { Post } from './posts/posts.model';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   controllers: [],  // регистрируем контроллер в модули
@@ -23,12 +28,17 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,        // название БД
-      models: [User, Role, UserRoles],          // регистрируем все модели, которые мы описывали
+      models: [User, Role, UserRoles, Post],    // регистрируем все модели, которые мы описывали
       autoLoadModels: true                      // чтобы Sequelize создавал таблицы в БД на основании тех моделей, которые мы будем создавать
+    }),
+    ServeStaticModule.forRoot({  // модуль позволяет просматривать картинки в браузере
+      rootPath: path.resolve(__dirname, 'static'),
     }),
     UsersModule,
     RolesModule,
     AuthModule,
+    PostsModule,
+    FilesModule,
   ]
 })
 

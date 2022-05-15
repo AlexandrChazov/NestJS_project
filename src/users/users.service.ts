@@ -9,8 +9,10 @@ import { BanUserDto } from './dto/ban-user.dto';
 @Injectable()
 export class UsersService {
 
-  constructor(@InjectModel(User) private userRepository: typeof User,
-              private roleService: RolesService) {                       // при создании пользователя нам нужно добавлять ему хоть какую-нибудь роль
+  constructor(
+    @InjectModel(User) private userRepository: typeof User,  // при создании пользователя нам нужно добавлять ему хоть какую-нибудь роль
+    private roleService: RolesService
+  ) {
   }
 
   async createUser(dto: CreateUserDto) {

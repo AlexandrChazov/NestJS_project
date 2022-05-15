@@ -1,7 +1,8 @@
-import { BelongsToMany, Column, DataType, Model, Table } from 'sequelize-typescript';
+import { BelongsToMany, Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '../roles/roles.model';
 import { UserRoles } from '../roles/user-roles.model';
+import { Post } from '../posts/posts.model';
 
 interface UserCreationAttrs {  // определяем какие поля нужны нам для создания объекта
   email: string;
@@ -31,6 +32,11 @@ export class User extends Model<User, UserCreationAttrs> {
   @Column({ type: DataType.STRING, allowNull: true })
   banReason: string;
 
+  // пользователь принадлежит ко многим ролям: ADMIN, USER
   @BelongsToMany(() => Role, () => UserRoles)  // указываем с какой сущностью мы связываем и через какую таблицу мы это делаем
   roles: Role[];
+
+  // один пользователь имеет много постов
+  @HasMany(() => Post)
+  post: Post[];   // массив постов типа Post
 }
